@@ -2,8 +2,8 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders Hello world', () => {
+test('renders Chat', () => {
   render(<App />);
-  const hellolement = screen.getByText(/Hello world/i);
-  expect(hellolement).toBeInTheDocument();
+  const chatElement = screen.getByText(/Chat app/i);
+  expect(chatElement).toBeInTheDocument();
 });

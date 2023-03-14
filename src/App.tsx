@@ -1,7 +1,12 @@
 import './App.scss';
+import { Chat } from './components/chat/Chat';
 
 function App() {
-  return <div className="App">Hello world</div>;
+  return (
+    <div className="App">
+      <Chat />
+    </div>
+  );
 }
 
 export default App;
