@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 
 interface Message {
   sender: string;
@@ -6,13 +7,10 @@ interface Message {
 }
 
 export function Chat() {
-  const initMessage: Message = {
-    sender: 'Chatbot',
-    content: 'Hello'
-  };
-
   const [currentMessage, setCurrentMessage] = useState<string>('');
-  const [messages, setMessages] = useState([initMessage]);
+  const [messages, setMessages] = useState<Message[]>([]);
+
+  const [currentSender, setCurrentSender] = useState<string>('');
 
   const onChangeMessage = (e: any) => {
     if (e?.target) {
@@ -20,18 +18,35 @@ export function Chat() {
     }
   };
 
+  const onChangeSender = (e: any) => {
+    if (e?.target) {
+      setCurrentSender(e.target.value);
+    }
+  };
+
   const onKeyDown = (e: any) => {
     if (e.key === 'Enter') {
-      setMessages([
-        ...messages,
-        {
-          sender: 'Me',
-          content: currentMessage
-        }
-      ]);
+      axios.post('http://localhost:3001/messages', {
+        sender: currentSender,
+        content: currentMessage
+      });
       setCurrentMessage('');
     }
   };
+
+  const getMessages = () => {
+    axios.get('http://localhost:3001/messages').then((res) => {
+      messages;
+      setMessages(res.data);
+    });
+  };
+
+  useEffect(() => {
+    const checkMessages = setInterval(() => {
+      getMessages();
+    }, 1000);
+    return () => clearInterval(checkMessages);
+  }, []);
 
   return (
     <div>
@@ -41,6 +56,7 @@ export function Chat() {
           [{message.sender}] {message.content}
         </div>
       ))}
+      <input placeholder="Sender" value={currentSender} onChange={onChangeSender} />
       <input
         placeholder="Message"
         value={currentMessage}
