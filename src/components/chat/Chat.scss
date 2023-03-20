@@ -33,40 +33,6 @@
         height: 17rem;
         overflow: scroll;
     
-        .writing-section {
-    
-            background-color: white;
-            border-radius: 0.8rem;
-            display: flex;
-            flex-direction: row;
-            padding: 0.5rem;
-        
-            .message-inputs {
-                display: flex;
-                flex: 1;
-                flex-direction: column;
-        
-                .input {
-                    border: none;
-                    flex-basis: 100%;
-                    outline: none;
-                    padding: 0.2rem;
-                    
-                    &.sender {
-                        border-bottom: 0.1rem solid lightgray;
-                    }
-                }
-            }
-        
-            .send-button {
-                align-items: center;
-                cursor: pointer;
-                display: flex;
-                flex-basis: 5rem;
-                justify-content: center;
-            }
-        }
-    
     
         .typing-dots {
             background-color: white;
@@ -85,7 +51,40 @@
                 }
             }
         }
+    }
     
+    .writing-section {
+
+        background-color: white;
+        border-radius: 0.8rem;
+        display: flex;
+        flex-direction: row;
+        padding: 0.5rem;
+    
+        .message-inputs {
+            display: flex;
+            flex: 1;
+            flex-direction: column;
+    
+            .input {
+                border: none;
+                flex-basis: 100%;
+                outline: none;
+                padding: 0.2rem;
+                
+                &.sender {
+                    border-bottom: 0.1rem solid lightgray;
+                }
+            }
+        }
+    
+        .send-button {
+            align-items: center;
+            cursor: pointer;
+            display: flex;
+            flex-basis: 5rem;
+            justify-content: center;
+        }
     }
 
 }
