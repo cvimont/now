@@ -11,7 +11,7 @@ jobs:
     name: Run Jest
     runs-on: Ubuntu-latest
     permissions:
-      content: read
+      contents: read
       security-events: write
     steps:
       - name: Checkout
