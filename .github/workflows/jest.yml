@@ -16,7 +16,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Install project
+        run: npm install
+      - name: Build
+        run: npm run build
       - name: Run tests
-        run: react-scripts test 
+        run: npm run test 
           --transformIgnorePatterns "node_modules/(?!axios)/"
 
