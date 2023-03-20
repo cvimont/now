@@ -21,6 +21,6 @@ jobs:
           npm install eslint@^8.36.0
       - name: Run ESlint
         run:
-          npx eslint .
+          npx eslint src/*
           --config .eslintrc.json
           --ext .js, .jsx, .ts, .tsx
