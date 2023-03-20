@@ -23,4 +23,3 @@ jobs:
         run:
           npx eslint src/*
           --config .eslintrc.json
-          --ext .js, .jsx, .ts, .tsx
