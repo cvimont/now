@@ -15,4 +15,4 @@ jobs:
       security-events: write
     steps:
       - name: Checkout
-        uses: action/checkout@v3
+        uses: actions/checkout@v3
