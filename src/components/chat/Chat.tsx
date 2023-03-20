@@ -1,7 +1,9 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { Message } from '../Message/Message';
+import './Chat.scss';
 
-interface Message {
+interface IMessage {
   sender: string;
   content: string;
 }
@@ -11,7 +13,7 @@ const urlMessages = 'http://localhost:3001/messages';
 
 export function Chat() {
   const [currentMessage, setCurrentMessage] = useState<string>('');
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<IMessage[]>([]);
 
   const [currentSender, setCurrentSender] = useState<string>('');
 
@@ -35,17 +37,21 @@ export function Chat() {
 
   const onKeyDown = (e: any) => {
     if (e.key === 'Enter') {
-      axios.post(urlMessages, {
-        sender: currentSender,
-        content: currentMessage
-      });
-      axios.post(urlTyping, {
-        name: currentSender,
-        isTyping: false
-      });
-
-      setCurrentMessage('');
+      sendMessage();
     }
+  };
+
+  const sendMessage = () => {
+    axios.post(urlMessages, {
+      sender: currentSender,
+      content: currentMessage
+    });
+    axios.post(urlTyping, {
+      name: currentSender,
+      isTyping: false
+    });
+
+    setCurrentMessage('');
   };
 
   const getTyping = () => {
@@ -70,22 +76,51 @@ export function Chat() {
   }, []);
 
   return (
-    <div>
-      <div>Chat app</div>
-      {messages.map((message: any, index: number) => (
-        <div key={`message-${index}`}>
-          [{message.sender}] {message.content}
+    <div className="main-container">
+      <div className="section">
+        <div className="title">Now</div>
+      </div>
+      <div className="section">
+        <div className="section messages-container">
+          {messages.map((message: any, index: number) => (
+            <Message
+              key={`message-${index}`}
+              sender={message.sender}
+              content={message.content}
+              currentSender={currentSender}
+            />
+          ))}
+          {currentlyTyping?.length >= 1 && (
+            <div className="typing-dots">
+              <div className="typing-dot-1">•</div>
+              <div className="typing-dot-2">•</div>
+              <div className="typing-dot-3">•</div>
+            </div>
+          )}
         </div>
-      ))}
-      {currentlyTyping?.length === 1 && <div>{currentlyTyping?.[0]} is typing...</div>}
-      {currentlyTyping?.length > 1 && <div>Several users are typing...</div>}
-      <input placeholder="Sender" value={currentSender} onChange={onChangeSender} />
-      <input
-        placeholder="Message"
-        value={currentMessage}
-        onChange={onChangeMessage}
-        onKeyDown={onKeyDown}
-      />
+        <div className="section">
+          <div className="writing-section">
+            <div className="message-inputs">
+              <input
+                className="input sender"
+                placeholder="Sender"
+                value={currentSender}
+                onChange={onChangeSender}
+              />
+              <input
+                className="input"
+                placeholder="Message"
+                value={currentMessage}
+                onChange={onChangeMessage}
+                onKeyDown={onKeyDown}
+              />
+            </div>
+            <div className="send-button" onClick={sendMessage}>
+              Send
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
