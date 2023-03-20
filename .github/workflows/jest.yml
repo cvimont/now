@@ -1,0 +1,22 @@
+name: Jest
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  jest:
+    name: Run Jest
+    runs-on: Ubuntu-latest
+    permissions:
+      content: read
+      security-events: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Run tests
+        run: react-scripts test 
+          --transformIgnorePatterns \"node_modules/(?!axios)/\"
+
