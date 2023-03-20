@@ -4,6 +4,6 @@ import App from './App';
 
 test('renders Chat', () => {
   render(<App />);
-  const chatElement = screen.getByText(/Chat app/i);
+  const chatElement = screen.getByText(/Now/i);
   expect(chatElement).toBeInTheDocument();
 });
